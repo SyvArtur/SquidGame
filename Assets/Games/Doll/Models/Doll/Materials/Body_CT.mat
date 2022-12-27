@@ -40,11 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-<<<<<<< HEAD
-        m_Texture: {fileID: 2800000, guid: 21bd861a4a233404fb5f9539ce7215ac, type: 3}
-=======
         m_Texture: {fileID: 2800000, guid: fd8cf3afad0694b4fb1539f19241aaee, type: 3}
->>>>>>> Artur
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

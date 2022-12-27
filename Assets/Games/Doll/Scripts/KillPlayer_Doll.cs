@@ -24,9 +24,8 @@ public class KillPlayer_Doll : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animIDDeath = Animator.StringToHash("Kill");
         _animIDSpeed = Animator.StringToHash("Speed");
-        Sound_Doll.Instance.SubscribeToScanning(async () =>
-        {
-            await Task.Run(() =>
+        Sound_Doll.Instance.SubscribeToScanning(() =>
+        {  Task.Run(() =>
             {
                 Thread.Sleep(1000);
                 _scan = true;
@@ -73,9 +72,9 @@ public class KillPlayer_Doll : MonoBehaviour
 
     private void Countdown()
     {
-        float minutes = Mathf.FloorToInt(_timeLeft / 60);
+        //float minutes = Mathf.FloorToInt(_timeLeft / 60);
         float seconds = Mathf.FloorToInt(_timeLeft % 60);
-        _timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        _timerText.text = string.Format("{0:00}", /*minutes,*/ seconds);
     }
 
     void Update()

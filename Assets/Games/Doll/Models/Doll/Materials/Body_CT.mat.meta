@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 7893b8040d48953498b11b96f70bc4b3
-=======
-<<<<<<<< HEAD:Assets/Models/Structure/Dool/Doll/Materials/Body_CT.mat.meta
-guid: e3269d586ed68864ca5b5e1eec93be84
-========
 guid: 581803f0fc041c449856c8001aa3549c
->>>>>>>> Artur:Assets/Games/Doll/Models/Doll/Materials/Body_CT.mat.meta
->>>>>>> Artur
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
