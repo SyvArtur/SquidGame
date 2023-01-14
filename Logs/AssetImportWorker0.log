@@ -246,3 +246,206 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005860 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.74 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.867 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1868ms)
+		BeginReloadAssembly (193ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (52ms)
+		EndReloadAssembly (1572ms)
+			LoadAssemblies (172ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (468ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (77ms)
+			SetupLoadedEditorAssemblies (700ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (157ms)
+				ProcessInitializeOnLoadAttributes (468ms)
+				ProcessInitializeOnLoadMethodAttributes (60ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (3ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.75 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2018 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 90.5 MB.
+System memory in use after: 90.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2474.
+Total: 4.589500 ms (FindLiveObjects: 0.194800 ms CreateObjectMapping: 0.123800 ms MarkObjects: 4.166200 ms  DeleteObjects: 0.103100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005695 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.76 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.811 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1812ms)
+		BeginReloadAssembly (189ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (49ms)
+		EndReloadAssembly (1525ms)
+			LoadAssemblies (178ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (477ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (76ms)
+			SetupLoadedEditorAssemblies (644ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (134ms)
+				ProcessInitializeOnLoadAttributes (439ms)
+				ProcessInitializeOnLoadMethodAttributes (56ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (3ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.75 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2018 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 90.5 MB.
+System memory in use after: 90.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2477.
+Total: 4.625100 ms (FindLiveObjects: 0.213300 ms CreateObjectMapping: 0.127000 ms MarkObjects: 4.181600 ms  DeleteObjects: 0.101400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1312.734059 seconds.
+  path: Assets/Games/Block_Party
+  artifactKey: Guid(92257bf151585eb4493549c78e61c451) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party using Guid(92257bf151585eb4493549c78e61c451) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '144a43309e9867db33029a7851df304d') in 0.012853 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.618231 seconds.
+  path: Assets/Games/Block_Party/Colors
+  artifactKey: Guid(7e01f2fe2b03f8a449a961af5202f4a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors using Guid(7e01f2fe2b03f8a449a961af5202f4a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8be0390a93d93f48899c46051c208367') in 0.008283 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.061939 seconds.
+  path: Assets/Games/Block_Party/Colors/Black.png
+  artifactKey: Guid(9562308a973d6ae42a36abc6fb0b5eab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Black.png using Guid(9562308a973d6ae42a36abc6fb0b5eab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaf623e1d08ffbf0c2e33cec3b8b99a3') in 0.183283 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000244 seconds.
+  path: Assets/Games/Block_Party/Colors/White.jpg
+  artifactKey: Guid(e1da1471184d72546b0369a73dd52e54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/White.jpg using Guid(e1da1471184d72546b0369a73dd52e54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7d0319be869175f4429fc172eaf78df') in 0.017635 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000270 seconds.
+  path: Assets/Games/Block_Party/Colors/Ice_blue.jpg
+  artifactKey: Guid(c203b8351eef51646b37fdd8c917a388) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Ice_blue.jpg using Guid(c203b8351eef51646b37fdd8c917a388) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5380a86ea70d22c7a1433619c8cbbca4') in 0.016768 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000293 seconds.
+  path: Assets/Games/Block_Party/Colors/Violet.png
+  artifactKey: Guid(ee8d29193127ac346a8fb75a41ff80ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Violet.png using Guid(ee8d29193127ac346a8fb75a41ff80ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '092c0136f8cdbd9e9d8e93a45c9aa105') in 0.016914 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Games/Block_Party/Colors/Orange.png
+  artifactKey: Guid(0c4a460e870d4d94dbef469ac091be37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Orange.png using Guid(0c4a460e870d4d94dbef469ac091be37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70a21f7a6341ca17a5bff539e5564d61') in 0.014123 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000252 seconds.
+  path: Assets/Games/Block_Party/Colors/Blue.jpg
+  artifactKey: Guid(0bd497850fc3df7449cf04c050b2f955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Blue.jpg using Guid(0bd497850fc3df7449cf04c050b2f955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d03374af984e7177c455cec689cdc6e') in 0.014212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000304 seconds.
+  path: Assets/Games/Block_Party/Colors/Gray.png
+  artifactKey: Guid(a0e3999cea4937d4ca609fde96e7e36b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Gray.png using Guid(a0e3999cea4937d4ca609fde96e7e36b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e93addf509ed5587701311ad6646397b') in 0.015058 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000254 seconds.
+  path: Assets/Games/Block_Party/Colors/Pink.jpg
+  artifactKey: Guid(aa28aad14bbc99f469f35ba45f58ccd0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Pink.jpg using Guid(aa28aad14bbc99f469f35ba45f58ccd0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb6a94fb73f8ee21b3e3917fab450ded') in 0.016063 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000295 seconds.
+  path: Assets/Games/Block_Party/Colors/Green.png
+  artifactKey: Guid(3e0b65b0364106e4d966b7d8448d12cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Green.png using Guid(3e0b65b0364106e4d966b7d8448d12cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f1bd0afa80f002753e8e6134d680210') in 0.015952 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000260 seconds.
+  path: Assets/Games/Block_Party/Colors/Light_gray.png
+  artifactKey: Guid(b5bbd32cc658b414380936372151624c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Light_gray.png using Guid(b5bbd32cc658b414380936372151624c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b33225c0c71cdccf78b4c284109fea40') in 0.014028 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000236 seconds.
+  path: Assets/Games/Block_Party/Colors/Yellow.png
+  artifactKey: Guid(4c571a5be54621147980106a5d6973f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Yellow.png using Guid(4c571a5be54621147980106a5d6973f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b887d1ef1464c70c2910d7eff8fc039e') in 0.014218 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000243 seconds.
+  path: Assets/Games/Block_Party/Colors/Red.jpg
+  artifactKey: Guid(bae845ce309c6d9469da7e9abd735ebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Red.jpg using Guid(bae845ce309c6d9469da7e9abd735ebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef91355bc7113203d2e935d7b86b0419') in 0.014500 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000263 seconds.
+  path: Assets/Games/Block_Party/Colors/Brown.jpg
+  artifactKey: Guid(6ccafee23e7f4e64a993796942796d41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Games/Block_Party/Colors/Brown.jpg using Guid(6ccafee23e7f4e64a993796942796d41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12c8c4cb31470732d739ceab66c1e03d') in 0.014334 seconds 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
