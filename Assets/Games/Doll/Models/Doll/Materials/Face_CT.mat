@@ -45,6 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
 <<<<<<< HEAD
+<<<<<<< HEAD
         m_Texture: {fileID: 0}
 =======
 <<<<<<<< HEAD:Assets/Games/Block_Party/Colors/Materials/Brown.mat
@@ -53,6 +54,9 @@ Material:
         m_Texture: {fileID: 0}
 >>>>>>>> remotes/origin/Artur:Assets/Games/Doll/Models/Doll/Materials/Face_CT.mat
 >>>>>>> Artur
+=======
+        m_Texture: {fileID: 0}
+>>>>>>> 798f2bac8b9711c8aaae47f0af97c9ac4548cc9a
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

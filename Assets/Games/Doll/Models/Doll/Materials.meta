@@ -1,5 +1,6 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 5a808d3ec6627a64fb3f3333e88092f7
 =======
 <<<<<<<< HEAD:Assets/Models/Structure/Dool/Doll/Materials.meta
@@ -8,6 +9,9 @@ guid: 85f9fc98d4cd06d428cf2ea4c5245e1a
 guid: 3f1bda17f91717848892ffff6326095e
 >>>>>>>> Artur:Assets/Games/Doll/Models/Doll/Materials.meta
 >>>>>>> Artur
+=======
+guid: bab00168ad9b3b84f97f2595d34381a2
+>>>>>>> 798f2bac8b9711c8aaae47f0af97c9ac4548cc9a
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,5 +1,6 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: a2ade6a2f721ede40b4b7e9239a56aec
 =======
 <<<<<<<< HEAD:Assets/Models/Structure/Dool/Doll/Materials/Body_normal.mat.meta
@@ -8,6 +9,9 @@ guid: 7bf192f6a35a4cb41a1b312f00a3fd1e
 guid: 9ebd9ad0faca8ee48ae02c52e4f1e587
 >>>>>>>> Artur:Assets/Games/Doll/Models/Doll/Materials/Body_normal.mat.meta
 >>>>>>> Artur
+=======
+guid: 1080f2b48774f304a91bc0490f94f509
+>>>>>>> 798f2bac8b9711c8aaae47f0af97c9ac4548cc9a
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
