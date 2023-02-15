@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 21bd861a4a233404fb5f9539ce7215ac
+=======
+<<<<<<<< HEAD:Assets/Models/Structure/Dool/Doll/textures/Body_CT.png.meta
+guid: d386916f47fa6de41be46555bb71a1cb
+========
+guid: 7f1a02d20683e904192e77db6a5d4da0
+>>>>>>>> Artur:Assets/Games/Doll/Models/Doll/textures/Body_CT.png.meta
+>>>>>>> Artur
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
