@@ -34,16 +34,19 @@ public class Sound : MonoBehaviour
     void Awake()
     {
         kukulaku = GetComponent<AudioSource>();
+
         SubscribeToRepeatSound (() =>
         {
             kukulaku.Play();
             time = kukulaku.clip.length;
         });
 
+
         repeatSound?.Invoke();
 
 
         StartCoroutine(StartTimer());
+
     }
 
     void Start()
