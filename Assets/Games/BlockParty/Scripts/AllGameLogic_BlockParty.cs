@@ -125,11 +125,14 @@ public class AllGameLogic_BlockParty : MonoBehaviour
         {
             float y = _player.transform.position.y;
             yield return new WaitForSeconds(2);
-
-            if ((_player.transform.position.y + _player.transform.localScale.y * 3 < y))
+            Debug.Log("Player died " + _player);
+            if (_player != null)
             {
-                Destroy(_player);
-                _menu.ShowMenu();
+                if (_player.transform.position.y + _player.transform.localScale.y * 3 < y)
+                {
+                    Destroy(_player);
+                    _menu.ShowMenu();
+                }
             }
             StartCoroutine(CheckPositionAndKill());
         }

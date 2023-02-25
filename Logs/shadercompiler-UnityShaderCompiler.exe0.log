@@ -1,3 +1,12 @@
 Base path: 'D:/Program/Unity/Editor/Data', plugins path 'D:/Program/Unity/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 
+<<<<<<< HEAD
+=======
+Cmd: disassembleShader
+ name=Skidmarks platform=d3d11 type=15 mask=6 insize=858 outsize=1756 ok=1
+
+Cmd: disassembleShader
+ name=Skidmarks platform=d3d11 type=17 mask=6 insize=578 outsize=1278 ok=1
+
+>>>>>>> 7fc3b0c8 (Add new game mode and fix few bugs in other modes)
