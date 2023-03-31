@@ -11,4 +11,10 @@ abstract class CreatorCamera
         var camera = FactoryMethod(car);
         camera.Initialize(car);
     }
+
+/*    public void CameraWork()
+    {
+        var camera = FactoryMethod();
+        camera.CameraWork();
+    }*/
 }

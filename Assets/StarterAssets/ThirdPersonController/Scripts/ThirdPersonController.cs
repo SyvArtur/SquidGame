@@ -77,7 +77,7 @@ namespace StarterAssets
 
         // cinemachine
         private float _cinemachineTargetYaw;
-        private float _cinemachineTargetPitch;
+        [SerializeField] private float _cinemachineTargetPitch;
 
         // player
         private float _speed;
@@ -208,7 +208,7 @@ namespace StarterAssets
             // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
-
+            Debug.Log(_cinemachineTargetPitch);
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);

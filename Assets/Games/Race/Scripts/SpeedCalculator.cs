@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SpeedCalculator : MonoBehaviour
 {
+
     public static float Speed;
 
     [SerializeField] private Rigidbody _car;
@@ -19,5 +20,6 @@ public class SpeedCalculator : MonoBehaviour
 
         _speedText.text = Speed.ToString("0");
     }
+
 
 }

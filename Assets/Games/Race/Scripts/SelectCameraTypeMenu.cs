@@ -19,13 +19,9 @@ public class SelectCameraTypeMenu : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    void OnApplicationFocus(bool hasFocus)
+    void FixedUpdate()
     {
-        if (hasFocus && _startMenu.active)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        } 
+
     }
 
     public void SelectedFirstPersonCamera()

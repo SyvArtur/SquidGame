@@ -21,7 +21,7 @@ class ThirdPersonCamera : MonoBehaviour, ICameraOperation
         Camera.main.transform.position = new Vector3(Camera.main.transform.parent.position.x + 6, Camera.main.transform.parent.position.y + 3, Camera.main.transform.parent.position.z);
         Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         Camera.main.transform.parent.position = new Vector3(_car.transform.position.x, _car.transform.position.y, _car.transform.position.z);
-        Camera.main.transform.parent.rotation = Quaternion.Euler(0, 0, 135f);
+        //Camera.main.transform.parent.rotation = Quaternion.Euler(0, 0, 0);
 
         
 
@@ -35,23 +35,25 @@ class ThirdPersonCamera : MonoBehaviour, ICameraOperation
 
     public void CameraWork()
     {
-
+        // if there is an input and camera position is not fixed
+        //Debug.Log(_input.look.sqrMagnitude);
         float threshold = 0.01f;
         Camera.main.transform.parent.position = new Vector3 (_car.transform.position.x+1, _car.transform.position.y, _car.transform.position.z);
         if (_input.look.sqrMagnitude >= threshold)
         {
+            //Don't multiply mouse input by Time.deltaTime;
             //float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
             float deltaTimeMultiplier = 5f;
             _camRotationY += _input.look.x * deltaTimeMultiplier;
             _camRotationZ += -_input.look.y * deltaTimeMultiplier;
         }
 
-        float TopClamp = 155.0f; 
-        float BottomClamp = 70.0f; 
-
+        float TopClamp = 155.0f; //How far in degrees can you move the camera up
+        float BottomClamp = 70.0f; //How far in degrees can you move the camera down
+        // clamp our rotations so our values are limited 360 degrees
         _camRotationZ = ClampAngle(_camRotationZ, BottomClamp, TopClamp);
         _camRotationY = ClampAngle(_camRotationY, float.MinValue, float.MaxValue);
-
+        // Cinemachine will follow this target
         Camera.main.transform.parent.rotation = Quaternion.Euler(0, _camRotationY, _camRotationZ);
 
         Camera.main.transform.LookAt(Camera.main.transform.parent.transform);

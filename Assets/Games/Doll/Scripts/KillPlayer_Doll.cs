@@ -34,25 +34,33 @@ public class KillPlayer_Doll : MonoBehaviour
         });
         Sound_Doll.Instance.SubscribeToRepeatSound(() =>
         _scan = false);
+    }
+
+    void Start()
+    {
         _timeLeft = _time;
         StartCoroutine(StartTimer());
     }
 
     private IEnumerator StartTimer()
     {
-        Countdown();
-        yield return new WaitForSeconds(1);
         _timeLeft -= 1;
+        yield return new WaitForSeconds(1);
+        Countdown();
         if (_timeLeft > 0)
         {
             StartCoroutine(StartTimer());
         }
         else
         {
-            _shootSound.PlayOneShot(_shootSound.clip);
-            _kill = true;
-            _animator.SetBool(_animIDDeath, _kill);
+            if (!_kill)
+            {
+                _shootSound.PlayOneShot(_shootSound.clip);
+                _kill = true;
+                _animator.SetBool(_animIDDeath, _kill);
+            }
         }
+        
     }
 
 

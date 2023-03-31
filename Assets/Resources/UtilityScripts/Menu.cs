@@ -129,7 +129,7 @@ public class Menu
 
     private void CreateBtnRestart()
     {
-        GameObject btnRestart = CreateDeffaultButton("btnRestart", 0, 100, 380, 130, new Color32(255, 140, 40, 255));
+        GameObject btnRestart = CreateDeffaultButton("btnRestart", 0, 100, 700, 130, new Color32(255, 140, 40, 255));
         GameObject text = CreateDeffaultTextForButton(btnRestart, "Restart", 50);
 
         try
@@ -150,9 +150,9 @@ public class Menu
 
     private void CreateBtnBackToLobby()
     {
-        GameObject btnBackToLobby = CreateDeffaultButton("btnBackToLobby", 0, -100, 380, 130, new Color32(255, 140, 40, 255));
+        GameObject btnBackToLobby = CreateDeffaultButton("btnBackToLobby", 0, -100, 700, 130, new Color32(255, 140, 40, 255));
         GameObject text = CreateDeffaultTextForButton(btnBackToLobby, "Back to Lobby", 50);
-
+        
         try
         {
             btnBackToLobby.GetComponent<Image>().sprite = Resources.Load<Sprite>("BlueButton");

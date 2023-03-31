@@ -116,8 +116,8 @@ public class Skidmarks : MonoBehaviour
 
         if (!haveSetBounds)
         {
-            // Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each timeForTimer
-            // Save timeForTimer by just making the mesh bounds huge, so the skidmarks will always draw
+            // Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each time
+            // Save time by just making the mesh bounds huge, so the skidmarks will always draw
             // Not sure why I only need to do this once, yet can't do it in Start (it resets to zero)
             marksMesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(10000, 10000, 10000));
             haveSetBounds = true;
@@ -171,7 +171,7 @@ public class Skidmarks : MonoBehaviour
             // - Car draws skidmark, e.g. index 50 with last index 40.
             // - Skidmark markIndex loops around, and other _car overwrites index 50
             // - Car draws skidmark, e.g. index 45. Last index was 40, but now 40 is different, changed by someone else.
-            // This makes sure we ignore the last index if the _distanceBetweenCarAndAgent looks wrong
+            // This makes sure we ignore the last index if the distance looks wrong
             if (distAndDirection.sqrMagnitude > MIN_SQR_DISTANCE * 10)
             {
                 lastIndex = -1;
