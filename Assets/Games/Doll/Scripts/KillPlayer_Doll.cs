@@ -45,15 +45,16 @@ public class KillPlayer_Doll : MonoBehaviour
     private IEnumerator StartTimer()
     {
         _timeLeft -= 1;
-        yield return new WaitForSeconds(1);
         Countdown();
+        yield return new WaitForSeconds(1);
+        
         if (_timeLeft > 0)
         {
             StartCoroutine(StartTimer());
         }
         else
         {
-            if (!_kill)
+            if (!_kill & transform.position.x < _lineWin.transform.position.x)
             {
                 _shootSound.PlayOneShot(_shootSound.clip);
                 _kill = true;
@@ -75,7 +76,6 @@ public class KillPlayer_Doll : MonoBehaviour
                 _animator.SetBool(_animIDDeath, _kill);
             }
         }
-
     }
 
     private void Countdown()

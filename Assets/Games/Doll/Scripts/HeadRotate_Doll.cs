@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using UnityEditor;
-using UnityEditorInternal;
+
 using UnityEngine;
 
 public class HeadRotate_Doll : MonoBehaviour

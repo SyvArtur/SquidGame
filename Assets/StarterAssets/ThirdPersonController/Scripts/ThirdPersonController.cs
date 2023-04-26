@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using Mirror;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -12,7 +14,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : NetworkBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -62,6 +64,8 @@ namespace StarterAssets
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
+
+        public CinemachineVirtualCamera VirtualCamera;
 
         [Tooltip("How far in degrees can you move the camera up")]
         public float TopClamp = 70.0f;
@@ -132,19 +136,35 @@ namespace StarterAssets
             }
         }
 
+        public override void OnStartAuthority()
+        {
+            base.OnStartAuthority();
+
+            _playerInput = GetComponent<PlayerInput>();
+            _playerInput.enabled = true;
+/*
+            _input = GetComponent<StarterAssetsInputs>();
+            _input.enabled = true;*/
+        }
+
         private void Start()
         {
+            if (!isLocalPlayer)
+            {
+                return;
+            }
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-            _playerInput = GetComponent<PlayerInput>();
+            //_playerInput = GetComponent<PlayerInput>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
-
+            VirtualCamera = CinemachineVirtualCamera.FindObjectOfType<CinemachineVirtualCamera>();
+            VirtualCamera.Follow = CinemachineCameraTarget.transform;
             AssignAnimationIDs();
 
             // reset our timeouts on start
@@ -154,15 +174,22 @@ namespace StarterAssets
 
         private void Update()
         {
-                _hasAnimator = TryGetComponent(out _animator);
-                JumpAndGravity();
-                GroundedCheck();
-                Move();
-            
+            if (!isLocalPlayer)
+            {
+                return;
+            }
+            _hasAnimator = TryGetComponent(out _animator);
+            JumpAndGravity();
+            GroundedCheck();
+            Move();
         }
 
         private void LateUpdate()
         {
+            if (!isLocalPlayer)
+            {
+                return;
+            }
             CameraRotation();
         }
 
@@ -208,7 +235,6 @@ namespace StarterAssets
             // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
-            Debug.Log(_cinemachineTargetPitch);
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);

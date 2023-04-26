@@ -125,7 +125,6 @@ public class AllGameLogic_BlockParty : MonoBehaviour
         {
             float y = _player.transform.position.y;
             yield return new WaitForSeconds(2);
-            Debug.Log("Player died " + _player);
             if (_player != null)
             {
                 if (_player.transform.position.y + _player.transform.localScale.y * 3 < y)

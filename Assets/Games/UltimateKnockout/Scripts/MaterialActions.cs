@@ -34,11 +34,6 @@ public class MaterialActions : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        
-    }
-
     private void Shuffle<T>(T[] arr)
     {
         for (int i = arr.Length - 1; i >= 1; i--)
@@ -80,8 +75,9 @@ public class MaterialActions : MonoBehaviour
         for (int i = 0; i < _screens.Length; i++)
         {
             _screens[i].GetComponent<MeshRenderer>().material = new Material(_correctMaterial);
-            _screens[i].GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(Mathf.Max(transform.localScale.x, transform.localScale.z) * tillingX, transform.localScale.y * 1);
+            _screens[i].GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(transform.localScale.x * tillingX, transform.localScale.y * 1);
             _screens[i].GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2((1 - tillingX) / 2, 0));
+
         }
     }
 

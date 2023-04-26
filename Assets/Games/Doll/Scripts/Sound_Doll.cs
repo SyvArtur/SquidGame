@@ -12,7 +12,6 @@ public class Sound_Doll : MonoBehaviour
     {
         get
         {
-            
             if (instance == null)
                 instance = FindObjectOfType(typeof(Sound_Doll)) as Sound_Doll;
 
@@ -31,6 +30,8 @@ public class Sound_Doll : MonoBehaviour
     private RepeatSound repeatSound;
     private Scan scanning;
 
+    private delegate void RepeatSound();
+    private delegate void Scan();
 
     void Awake()
     {
@@ -65,21 +66,21 @@ public class Sound_Doll : MonoBehaviour
         scanning += new Scan(action);
     }
 
-    private bool b = true;
+    private bool soundRepeat = true;
     private IEnumerator StartTimer()
     {
         if (time < -0.8)
         {
             repeatSound?.Invoke();
-            b = true;
+            soundRepeat = true;
         }
 
         else
         {
-            if (time < 3.9 & b)
+            if (time < 3.9 & soundRepeat)
             {
                 scanning?.Invoke();
-                b = false;
+                soundRepeat = false;
             }
         }
         time -= 0.1f;
@@ -87,12 +88,5 @@ public class Sound_Doll : MonoBehaviour
         StartCoroutine(StartTimer());
     }
 
-    private delegate void RepeatSound();
-    private delegate void Scan();
-
-    void Update()
-    {
-        
-    }
 
 }

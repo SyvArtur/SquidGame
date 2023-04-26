@@ -17,11 +17,13 @@ public class FirstPersonCamera : MonoBehaviour, ICameraOperation
         _input = GetComponent<StarterAssetsInputs>();
         //car.AddComponent<Camera.main>();
         //Camera.main.transform.position = new Vector3(Camera.main.transform.parent.position.x + 6, Camera.main.transform.parent.position.y + 3, Camera.main.transform.parent.position.z);
-        Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //_input.look.x = 180;
+        
+
         //Camera.main.transform.parent.rotation = Quaternion.Euler(0, 0, 0);
         Camera.main.transform.SetParent(_car.transform);
         Camera.main.transform.position = new Vector3(_car.transform.position.x + 0.4f, _car.transform.position.y + 0.85f, _car.transform.position.z + 0.65f);
-
+        Camera.main.transform.rotation = Quaternion.Euler(_camRotationX, _car.transform.rotation.eulerAngles.y + 180, 0);
 
     }
 
@@ -42,15 +44,17 @@ public class FirstPersonCamera : MonoBehaviour, ICameraOperation
             float deltaTimeMultiplier = 5f;
             _camRotationY += _input.look.x * deltaTimeMultiplier;
             _camRotationX += _input.look.y * deltaTimeMultiplier;
+
+            float TopClamp = 80.0f;
+            float BottomClamp = -50.0f;
+            _camRotationX = ClampAngle(_camRotationX, BottomClamp, TopClamp);
+            _camRotationY = ClampAngle(_camRotationY, float.MinValue, float.MaxValue);
+
+            Camera.main.transform.rotation = Quaternion.Euler(_camRotationX, _car.transform.rotation.eulerAngles.y + 180 + _camRotationY, 0);
         }
         //_camRotationX += _car.transform.rotation.eulerAngles.y + _input.look.y * deltaTimeMultiplier;
 
-        float TopClamp = 80.0f; 
-        float BottomClamp = -50.0f; 
-        _camRotationX = ClampAngle(_camRotationX, BottomClamp, TopClamp);
-        _camRotationY = ClampAngle(_camRotationY, float.MinValue, float.MaxValue);
 
-        Camera.main.transform.rotation = Quaternion.Euler(_camRotationX, _car.transform.rotation.eulerAngles.y+_camRotationY, 0);
 
         //Camera.main.transform.LookAt(Camera.main.transform.parent.transform);
     }
