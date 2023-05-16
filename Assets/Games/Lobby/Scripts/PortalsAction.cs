@@ -1,4 +1,5 @@
 using EasyRoads3Dv3;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PortalsAction : MonoBehaviour
     [SerializeField] private GameObject portalDoll;
     [SerializeField] private GameObject portalRace;
     [SerializeField] private GameObject portalUltimateKnockout;
+    [SerializeField] private GameObject portalScene;
 
     void Start()
     {
@@ -20,6 +22,12 @@ public class PortalsAction : MonoBehaviour
         BoxCollider colliderDoll = portalDoll.AddComponent<BoxCollider>();
         BoxCollider colliderRace = portalRace.AddComponent<BoxCollider>();
         BoxCollider colliderUltimateKnockout = portalUltimateKnockout.AddComponent<BoxCollider>();
+
+        BoxCollider collider = portalScene.AddComponent<BoxCollider>();
+        collider.isTrigger = true;
+        TriggerAction triggerForscene = portalScene.AddComponent<TriggerAction>();
+        triggerForscene.NameGame = "Lobby1";
+
 
         colliderBlockParty.isTrigger = true;
         colliderDoll.isTrigger = true;

@@ -116,8 +116,8 @@ public class Skidmarks : MonoBehaviour
 
         if (!haveSetBounds)
         {
-            // Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each time
-            // Save time by just making the mesh bounds huge, so the skidmarks will always draw
+            // Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each timeForTimer
+            // Save timeForTimer by just making the mesh bounds huge, so the skidmarks will always draw
             // Not sure why I only need to do this once, yet can't do it in Start (it resets to zero)
             marksMesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(10000, 10000, 10000));
             haveSetBounds = true;

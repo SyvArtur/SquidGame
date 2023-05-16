@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Sound_Doll : MonoBehaviour
+public class Sound_Doll : NetworkBehaviour
 {
-    private static Sound_Doll instance;
+/*    private static Sound_Doll instance;
     public static Sound_Doll Instance
     {
         get
@@ -22,10 +23,9 @@ public class Sound_Doll : MonoBehaviour
             instance = value;
             
         }
-    }
+    }*/
 
-    private float time;
-    private AudioSource kukulaku;
+    [SerializeField] private ClientLogic_Doll ClientLogic;
 
     private RepeatSound repeatSound;
     private Scan scanning;
@@ -33,22 +33,40 @@ public class Sound_Doll : MonoBehaviour
     private delegate void RepeatSound();
     private delegate void Scan();
 
+    private float timeForTimer;
     void Awake()
     {
-        kukulaku = GetComponent<AudioSource>();
-        repeatSound += () =>
+        //_kukulaku = GetComponent<AudioSource>();
+        /*if (isServer)
         {
-            time = kukulaku.clip.length;
-            kukulaku.Play();
-        };
+            repeatSound += () =>
+            {
+                timeForTimer = _kukulaku.clip.length;
+                RpcPlaySound();
+            };
+        }*/
     }
 
-    void Start()
+    IEnumerator Start()
     {
-        StartCoroutine(InitializeWithDelay());
+        if (isServer)
+        {
+            repeatSound += () =>
+            {
+                timeForTimer = ClientLogic._kukulaku.clip.length;
+                ClientLogic.RpcPlaySound();
+            };
+
+            while (!MyNetworkManager.allClientsReady)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            StartCoroutine(InitializeWithDelay());
+        }
     }
 
     private IEnumerator InitializeWithDelay() {
+
         yield return new WaitForSeconds(2);
 
         repeatSound?.Invoke();
@@ -67,9 +85,10 @@ public class Sound_Doll : MonoBehaviour
     }
 
     private bool soundRepeat = true;
+
     private IEnumerator StartTimer()
     {
-        if (time < -0.8)
+        if (timeForTimer < -0.8)
         {
             repeatSound?.Invoke();
             soundRepeat = true;
@@ -77,13 +96,13 @@ public class Sound_Doll : MonoBehaviour
 
         else
         {
-            if (time < 3.9 & soundRepeat)
+            if (timeForTimer < 4.1 /*3.9*/ & soundRepeat)
             {
                 scanning?.Invoke();
                 soundRepeat = false;
             }
         }
-        time -= 0.1f;
+        timeForTimer -= 0.1f;
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(StartTimer());
     }

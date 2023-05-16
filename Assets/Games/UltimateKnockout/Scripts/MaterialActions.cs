@@ -1,11 +1,9 @@
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class MaterialActions : MonoBehaviour
+public class MaterialActions : NetworkBehaviour
 {
     [SerializeField] private Material[] _pictures;
     [SerializeField] public static float _timeBeforeChooseRightMaterial = 10f;
@@ -15,21 +13,24 @@ public class MaterialActions : MonoBehaviour
     [HideInInspector] public static Material _correctMaterial;
 
 
-    void Awake()
+    void Start()
     {
-        SetPropertyMaterials();
-
-        KeyEvents_UltimateKnockout.Instance.SubscribeToChoosePlatformForPlayer(() => {
-            ChooseRightMaterial();
-        });
-
-
-        KeyEvents_UltimateKnockout.Instance.SubscribeToRevising(() =>
+        if (isServer)
         {
-            Shuffle(_materials);
-            ResetScreens();
-        });
+            SetPropertyMaterials();
 
+            KeyEvents_UltimateKnockout.Instance.SubscribeToChoosePlatformForPlayer(() =>
+            {
+                ChooseRightMaterial();
+            });
+
+
+            KeyEvents_UltimateKnockout.Instance.SubscribeToRevising(() =>
+            {
+                Shuffle(_materials);
+                ResetScreens();
+            });
+        }
 
     }
 
@@ -77,7 +78,6 @@ public class MaterialActions : MonoBehaviour
             _screens[i].GetComponent<MeshRenderer>().material = new Material(_correctMaterial);
             _screens[i].GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(transform.localScale.x * tillingX, transform.localScale.y * 1);
             _screens[i].GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2((1 - tillingX) / 2, 0));
-
         }
     }
 

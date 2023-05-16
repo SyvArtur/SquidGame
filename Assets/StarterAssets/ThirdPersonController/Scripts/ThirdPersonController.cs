@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using Mirror;
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -108,7 +109,7 @@ namespace StarterAssets
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        //private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
@@ -126,15 +127,6 @@ namespace StarterAssets
             }
         }
 
-
-        private void Awake()
-        {
-            // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
-        }
 
         public override void OnStartAuthority()
         {
@@ -163,8 +155,8 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
-            VirtualCamera = CinemachineVirtualCamera.FindObjectOfType<CinemachineVirtualCamera>();
-            VirtualCamera.Follow = CinemachineCameraTarget.transform;
+/*            VirtualCamera = CinemachineVirtualCamera.FindObjectOfType<CinemachineVirtualCamera>();
+            VirtualCamera.Follow = CinemachineCameraTarget.transform;*/
             AssignAnimationIDs();
 
             // reset our timeouts on start
@@ -179,9 +171,11 @@ namespace StarterAssets
                 return;
             }
             _hasAnimator = TryGetComponent(out _animator);
+
             JumpAndGravity();
             GroundedCheck();
             Move();
+            //MovePlayer();
         }
 
         private void LateUpdate()
@@ -240,6 +234,24 @@ namespace StarterAssets
                 _cinemachineTargetYaw, 0.0f);
         }
 
+        [Command] 
+        private void MovePlayer()
+        {
+            gameObject.transform.position = gameObject.transform.position + new Vector3(1, 1, 1);
+        }
+
+        [ClientRpc]
+        private void RPCMovePlayer()
+        {
+
+        }
+
+        public struct MyController
+        {
+            public CharacterController controller;
+        }
+
+
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
@@ -279,7 +291,6 @@ namespace StarterAssets
 
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
             Vector3 targetDirection;
@@ -287,8 +298,14 @@ namespace StarterAssets
             {
                 if (_input.move != Vector2.zero)
                 {
-                    _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                      _mainCamera.transform.eulerAngles.y;
+                    //throw new Exception("Произошла ошибка!");
+
+                    _targetRotation = 
+                        Mathf.Atan2(inputDirection.x, 
+                        inputDirection.z) * 
+                        Mathf.Rad2Deg +
+                                      Camera.main.transform.eulerAngles.y;
+                    
                     float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                         RotationSmoothTime);
 
@@ -319,7 +336,7 @@ namespace StarterAssets
         {
             if (Grounded)
             {
-                // reset the fall timeout timer
+                // reset the fall timeout timeForTimer
                 _fallTimeoutDelta = FallTimeout;
 
                 // update animator if using character
@@ -358,7 +375,7 @@ namespace StarterAssets
             }
             else
             {
-                // reset the jump timeout timer
+                // reset the jump timeout timeForTimer
                 _jumpTimeoutDelta = JumpTimeout;
 
                 // fall timeout
@@ -379,7 +396,7 @@ namespace StarterAssets
                 _input.jump = false;
             }
 
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            // apply gravity over timeForTimer if under terminal (multiply by delta timeForTimer twice to linearly speed up over timeForTimer)
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
@@ -409,21 +426,34 @@ namespace StarterAssets
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            try
             {
-                if (FootstepAudioClips.Length > 0)
+                if (animationEvent.animatorClipInfo.weight > 0.5f)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    if (FootstepAudioClips.Length > 0)
+                    {
+                        var index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
+                        AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    }
                 }
+            }
+            catch { 
+            
             }
         }
 
         private void OnLand(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            try
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                if (animationEvent.animatorClipInfo.weight > 0.5f)
+                {
+                    AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                }
+            }
+            catch
+            {
+
             }
         }
     }

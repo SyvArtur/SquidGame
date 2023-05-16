@@ -1,3 +1,5 @@
+using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -5,47 +7,62 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KillPlayer_Doll : MonoBehaviour
+public class KillPlayer_Doll : NetworkBehaviour
 {
     [SerializeField] private float _time;
-    [SerializeField] private Text _timerText;
-    [SerializeField] private AudioSource _shootSound;
     [SerializeField] private GameObject _lineWin;
-    private Animator _animator;
+    [SerializeField] private ClientLogic_Doll ClientLogic;
+    //[SerializeField] private GameObject _player;
+    //private Animator _animator;
     private float _timeLeft = 0f;
     private int _animIDDeath;
     private int _animIDSpeed;
-    private bool _kill = false;
+    private bool[] _playerDead;
     private bool _scan = false;
+    private Sound_Doll _soundDool;
 
 
-    void Awake()
+    IEnumerator Start()
     {
-        _animator = GetComponent<Animator>();
-        _animIDDeath = Animator.StringToHash("Kill");
-        _animIDSpeed = Animator.StringToHash("Speed");
-        Sound_Doll.Instance.SubscribeToScanning(() =>
-        {  Task.Run(() =>
+        if (isServer)
+        {
+            _soundDool = gameObject.GetComponent<Sound_Doll>();
+            _playerDead = new bool[MyNetworkManager.clientObjects.Count];
+            Array.Fill(_playerDead, false);
+            //Animator animator = GetComponent<Animator>();
+
+            _animIDDeath = Animator.StringToHash("Kill");
+            _animIDSpeed = Animator.StringToHash("Speed");
+
+            _soundDool.SubscribeToScanning(() =>
             {
-                Thread.Sleep(1000);
-                _scan = true;
-            }
-            ); 
-        });
-        Sound_Doll.Instance.SubscribeToRepeatSound(() =>
-        _scan = false);
-    }
+                Task.Run(() =>
+                {
+                    Thread.Sleep(1000);
+                    _scan = true;
+                }
+                );
+            });
 
-    void Start()
-    {
-        _timeLeft = _time;
-        StartCoroutine(StartTimer());
+            _soundDool.SubscribeToRepeatSound(() => _scan = false);
+
+            while (!MyNetworkManager.allClientsReady)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            _timeLeft = _time;
+            StartCoroutine(StartTimer());
+        }
     }
+   /* private void Start()
+    {
+
+    }*/
 
     private IEnumerator StartTimer()
     {
         _timeLeft -= 1;
-        Countdown();
+        ClientLogic.RpcCountdown(_timeLeft);
         yield return new WaitForSeconds(1);
         
         if (_timeLeft > 0)
@@ -54,11 +71,13 @@ public class KillPlayer_Doll : MonoBehaviour
         }
         else
         {
-            if (!_kill & transform.position.x < _lineWin.transform.position.x)
+            for (int i = 0; i < MyNetworkManager.clientObjects.Count; i++)
             {
-                _shootSound.PlayOneShot(_shootSound.clip);
-                _kill = true;
-                _animator.SetBool(_animIDDeath, _kill);
+                if (!_playerDead[i] & MyNetworkManager.clientObjects[i].transform.position.x < _lineWin.transform.position.x)
+                {
+                    _playerDead[i] = true;
+                    ClientLogic.TargetDeath(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                }
             }
         }
         
@@ -69,24 +88,26 @@ public class KillPlayer_Doll : MonoBehaviour
     {
         if (_scan)
         {
-            if ((_animator.GetFloat(_animIDSpeed) > 0.001f || transform.position.y > 0) & !_kill & transform.position.x < _lineWin.transform.position.x)
+            for (int i = 0; i < MyNetworkManager.clientObjects.Count; i++)
             {
-                _shootSound.PlayOneShot(_shootSound.clip);
-                _kill = true;
-                _animator.SetBool(_animIDDeath, _kill);
+                if ((MyNetworkManager.clientObjects[i].GetComponent<Animator>().GetFloat(_animIDSpeed) > 0.001f |
+                    MyNetworkManager.clientObjects[i].transform.position.y > 0.1) & !_playerDead[i] &
+                    (MyNetworkManager.clientObjects[i].transform.position.x < _lineWin.transform.position.x))
+                {
+                    _playerDead[i] = true;
+                    ClientLogic.TargetDeath(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                }
             }
         }
     }
 
-    private void Countdown()
-    {
-        //float minutes = Mathf.FloorToInt(_timeLeft / 60);
-        float seconds = Mathf.FloorToInt(_timeLeft % 60);
-        _timerText.text = string.Format("{0:00}", /*minutes,*/ seconds);
-    }
+
 
     void Update()
     {
-        ScanningMotion();
+        if (isServer)
+        {
+            ScanningMotion();
+        }
     }
 }

@@ -48,7 +48,7 @@ public class WheelSkid : MonoBehaviour
         float wheelSpin = Mathf.Abs(carForwardVel - wheelAngularVelocity) * WHEEL_SLIP_MULTIPLIER;
 
         // NOTE: This extra line should not be needed and you can take it out if you have decent wheel physics
-        // The built-in Unity demo _car is actually skidding its wheels the ENTIRE time you're accelerating,
+        // The built-in Unity demo _car is actually skidding its wheels the ENTIRE timeForTimer you're accelerating,
         // so this fades out the wheelspin-based skid as speed increases to make it look almost OK
         wheelSpin = Mathf.Max(0, wheelSpin * (10 - Mathf.Abs(carForwardVel)));
 
