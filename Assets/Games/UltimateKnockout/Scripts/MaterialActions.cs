@@ -1,83 +1,51 @@
 using Cinemachine;
 using Mirror;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class MaterialActions : NetworkBehaviour
 {
-    [SerializeField] private Material[] _pictures;
-    [SerializeField] public static float _timeBeforeChooseRightMaterial = 10f;
+    [SerializeField] private KeyEvents_UltimateKnockout _keyEvents;
+    [SerializeField] private ClientLogic_UltimateKnockout ClientLogic;
     [SerializeField] private GameObject[] _screens;
-
-    [HideInInspector] public static Material[] _materials;
-    [HideInInspector] public static Material _correctMaterial;
+    [HideInInspector] public int _correctIdMaterial;
 
 
-    void Start()
+    IEnumerator Start()
     {
         if (isServer)
         {
-            SetPropertyMaterials();
-
-            KeyEvents_UltimateKnockout.Instance.SubscribeToChoosePlatformForPlayer(() =>
+            _keyEvents.SubscribeToChoosePlatformForPlayer(() =>
             {
-                ChooseRightMaterial();
+                _correctIdMaterial = Random.Range(0, ClientLogic./*_pictures*/_materialForPlatforms.Length);
+                ClientLogic.RpcTurnOnScreens(_screens, _correctIdMaterial);
             });
 
 
-            KeyEvents_UltimateKnockout.Instance.SubscribeToRevising(() =>
+            _keyEvents.SubscribeToRevising(() =>
             {
-                Shuffle(_materials);
-                ResetScreens();
+                Shuffle();
+                ClientLogic.RpcResetScreens(_screens);
             });
+
+            while (!MyNetworkManager.allClientsReady)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            ClientLogic.RpcSetPropertyMaterials();
         }
 
     }
 
 
-    private void Shuffle<T>(T[] arr)
+    private void Shuffle()
     {
-        for (int i = arr.Length - 1; i >= 1; i--)
+        for (int i = ClientLogic._materialForPlatforms.Length - 1; i >= 1; i--)
         {
             int j = Random.Range(0, i);
-
-            T tmp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = tmp;
-        }
-    }
-
-    private Material[] SetPropertyMaterials()
-    {
-        _materials = new Material[Platforms._sizeMatrixPlatform * Platforms._sizeMatrixPlatform];
-
-        for (int i = 0; i < Platforms._sizeMatrixPlatform * Platforms._sizeMatrixPlatform; i++)
-        {
-            _materials[i] = _pictures[i % _pictures.Length];
-        }
-        return _materials;
-    }
-
-
-
-    private void ResetScreens()
-    {
-        for (int i = 0; i < _screens.Length; i++)
-        {
-            _screens[i].GetComponent<MeshRenderer>().material = null;
-            _screens[i].GetComponent<MeshRenderer>().material.color = Color.HSVToRGB(221f, 221f, 221f);
-        }
-    }
-
-    private void ChooseRightMaterial()
-    {
-        float tillingX = 1.6f;
-        _correctMaterial = _pictures[Random.Range(0, _pictures.Length)];
-        for (int i = 0; i < _screens.Length; i++)
-        {
-            _screens[i].GetComponent<MeshRenderer>().material = new Material(_correctMaterial);
-            _screens[i].GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(transform.localScale.x * tillingX, transform.localScale.y * 1);
-            _screens[i].GetComponent<MeshRenderer>().material.SetTextureOffset("_MainTex", new Vector2((1 - tillingX) / 2, 0));
+            ClientLogic.RpcExchangeElementOfMaterialList(i, j);
         }
     }
 

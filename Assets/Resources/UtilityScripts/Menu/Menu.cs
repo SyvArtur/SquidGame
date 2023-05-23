@@ -1,26 +1,10 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu
 {
-    /*private static Menu instance;
-    public static Menu Instance
-    {
-        get
-        {
-
-            if (instance == null)
-                instance = FindObjectOfType(typeof(Menu)) as Menu;
-
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-
-        }
-    } */
     private bool _menuActive;
     private GameObject _mainCanvas;
 
@@ -28,22 +12,14 @@ public class Menu
 
     public void CreateMenu()
     {
-        // create game object and child object
         _mainCanvas = new GameObject();
-
-
-        // give them names for fun
+        MenuActive = false;
         _mainCanvas.name = "CanvasMenu";
 
-
-        // add a canvas to the parent
         _mainCanvas.AddComponent<Canvas>();
         _mainCanvas.AddComponent<CanvasScaler>();
         _mainCanvas.AddComponent<GraphicRaycaster>();
-        // add a recttransform to the child
 
-
-        // make a reference to the parent canvas and use the ref to set its properties
         Canvas myCanvas = _mainCanvas.GetComponent<Canvas>();
         myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
@@ -72,8 +48,6 @@ public class Menu
                 Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
                 textComponent.font = ArialFont;
                 textComponent.material = ArialFont.material;*/
-
-
 
         // set the font text
         //textComponent.text = "Ошибка соединения с базой";
@@ -161,7 +135,16 @@ public class Menu
 
         btnBackToLobby.GetComponent<Button>().onClick.AddListener(() => {
             HideMenu();
-            SceneManager.LoadScene("Lobby");
+            if (NetworkServer.active)
+            {
+/*                for (int i = 0; i < MyNetworkManager.clientObjects.Count; i++)
+                {
+                    ClientLogic.TargetChangeAnimationDead(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, false);
+                }*/
+
+                MyNetworkManager.singleton.ServerChangeScene("Lobby");
+            }
+            //SceneManager.LoadScene("Lobby");
         });
 
 

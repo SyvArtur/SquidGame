@@ -76,13 +76,19 @@ public class KillPlayer_Doll : NetworkBehaviour
                 if (!_playerDead[i] & MyNetworkManager.clientObjects[i].transform.position.x < _lineWin.transform.position.x)
                 {
                     _playerDead[i] = true;
-                    ClientLogic.TargetDeath(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                    ClientLogic.TargetChangeAnimationDead(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                    ClientLogic.RpcShootSound();
                 }
             }
+            Invoke(nameof(GameOver), 4f);
         }
         
     }
 
+    private void ChangeScene()
+    {
+        NetworkManager.singleton.ServerChangeScene("Lobby");
+    }
 
     private void ScanningMotion()
     {
@@ -95,13 +101,27 @@ public class KillPlayer_Doll : NetworkBehaviour
                     (MyNetworkManager.clientObjects[i].transform.position.x < _lineWin.transform.position.x))
                 {
                     _playerDead[i] = true;
-                    ClientLogic.TargetDeath(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                    ClientLogic.TargetChangeAnimationDead(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, _playerDead[i]);
+                    ClientLogic.RpcShootSound();
                 }
             }
         }
     }
 
-
+    private void GameOver()
+    {
+        for (int i = 0; i < MyNetworkManager.clientObjects.Count; i++)
+        {
+            if (!_playerDead[i])
+            {
+                PlayerProperties playerProperties = MyNetworkManager.clientObjects[i].GetComponent<PlayerProperties>();
+                playerProperties.countOfWins++;
+                playerProperties.UpdatePlayerNameFromServer();
+            }
+            ClientLogic.TargetChangeAnimationDead(MyNetworkManager.clientObjects[i].GetComponent<NetworkIdentity>().connectionToClient, _animIDDeath, false);
+        }
+        Invoke(nameof(ChangeScene), 0.6f);
+    }
 
     void Update()
     {

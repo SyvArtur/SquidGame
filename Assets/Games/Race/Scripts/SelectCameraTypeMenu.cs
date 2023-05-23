@@ -28,11 +28,6 @@ public class SelectCameraTypeMenu : MonoBehaviour
         } 
     }
 
-    void FixedUpdate()
-    {
-
-    }
-
     public void SelectedFirstPersonCamera()
     {
         _creatorCamera = new CreatorFirstPersonCamera();

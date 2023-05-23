@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
-
     public Material _lightMeterial;
     public float _brake;
-
-    void Start()
-    {
-       
-
-    }
 
 
     void Update()

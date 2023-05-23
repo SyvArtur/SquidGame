@@ -24,9 +24,15 @@ public class ClientLogic_Doll : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void TargetDeath(NetworkConnectionToClient conn, int animationDeathID, bool dead)
+    public void TargetChangeAnimationDead(NetworkConnectionToClient conn, int animationDeathID, bool dead)
     {
         conn.identity.gameObject.GetComponent<Animator>().SetBool(animationDeathID, dead);
+
+    }
+
+    [ClientRpc]
+    public void RpcShootSound()
+    {
         _shootSound.PlayOneShot(_shootSound.clip);
     }
 

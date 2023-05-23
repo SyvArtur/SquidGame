@@ -9,6 +9,5 @@ class CreatorAutomaticCamera : CreatorCamera
         AutomaticCamera camera = car.AddComponent<AutomaticCamera>();
         return camera;
     }
-
 }
 

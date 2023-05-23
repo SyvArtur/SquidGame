@@ -6,22 +6,11 @@ public class HeadRotate_Doll : NetworkBehaviour
 {
 
     [SerializeField] private GameObject _head;
-    [SerializeField] private int _speedRotate = 1;
     //[SerializeField] private ClientLogic_Doll ClientLogic;
 
     [HideInInspector] private Vector3 _rotateTo = new Vector3();
     [HideInInspector] private bool _rotating = false;
 
-    void Awake()
-    {
-/*        if (isServer)
-        {
-            Sound_Doll soundDool = gameObject.GetComponent<Sound_Doll>();
-            //_head = gameObject;
-            soundDool.SubscribeToRepeatSound(RotateAwayFromPlayer);
-            soundDool.SubscribeToScanning(RotateTOPlayer);
-        }*/
-    }
     private void Start()
     {
 /*        if (isServer)
@@ -68,7 +57,4 @@ public class HeadRotate_Doll : NetworkBehaviour
             HeadRotate();
         //}
     }
-
-
-
 }

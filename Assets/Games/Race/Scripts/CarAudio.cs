@@ -14,11 +14,6 @@ public class CarAudio : MonoBehaviour
 
     private float gearChange;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         PitchControl();
@@ -28,18 +23,17 @@ public class CarAudio : MonoBehaviour
 
     public void EngineVolume()
     {
-            if (CarController.carInput.Car.WASD.ReadValue<Vector2>().y == 1)
+        if (CarController.carInput.Car.WASD.ReadValue<Vector2>().y == 1)
+        {
+            Engine.volume += Time.deltaTime;
+        }
+        else
+        {
+            if (Engine.volume > 0.1f)
             {
-                Engine.volume += Time.deltaTime;
+                Engine.volume -= Time.deltaTime;
             }
-            else
-            {
-                if (Engine.volume > 0.1f)
-                {
-                    Engine.volume -= Time.deltaTime;
-                }
-            }      
-
+        }      
     }
 
 
@@ -89,6 +83,5 @@ public class CarAudio : MonoBehaviour
             Engine.pitch = SpeedCalculator.Speed * pitchOffSet4;
         }
     }
-
 
 }

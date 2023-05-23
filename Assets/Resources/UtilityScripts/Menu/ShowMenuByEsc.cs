@@ -1,19 +1,23 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ShowMenuByEsc : MonoBehaviour
+public class ShowMenuByEsc : NetworkBehaviour
 {
     private Menu _menu;
 
-    void Awake()
+    IEnumerator Start()
     {
+        while (!MyNetworkManager.allClientsReady)
+        {
+            yield return new WaitForEndOfFrame();
+        }
         _menu = new Menu();
         _menu.CreateMenu();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

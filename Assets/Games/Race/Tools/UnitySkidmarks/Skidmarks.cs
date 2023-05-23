@@ -171,7 +171,7 @@ public class Skidmarks : MonoBehaviour
             // - Car draws skidmark, e.g. index 50 with last index 40.
             // - Skidmark markIndex loops around, and other _car overwrites index 50
             // - Car draws skidmark, e.g. index 45. Last index was 40, but now 40 is different, changed by someone else.
-            // This makes sure we ignore the last index if the distance looks wrong
+            // This makes sure we ignore the last index if the _distanceBetweenCarAndAgent looks wrong
             if (distAndDirection.sqrMagnitude > MIN_SQR_DISTANCE * 10)
             {
                 lastIndex = -1;

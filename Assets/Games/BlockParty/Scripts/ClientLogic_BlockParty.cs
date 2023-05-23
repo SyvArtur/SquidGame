@@ -15,11 +15,13 @@ public class ClientLogic_BlockParty : NetworkBehaviour
 
     [HideInInspector] public readonly SyncList<Color> _syncListColors = new SyncList<Color>();
     [HideInInspector] public readonly SyncList<GameObject> _platforms = new SyncList<GameObject>();
-    [HideInInspector] public readonly SyncList<Vector3> _playerStartedPositins = new SyncList<Vector3>();
+    //[HideInInspector] public readonly SyncList<Vector3> _playerStartedPositins = new SyncList<Vector3>();
 
     [SyncVar(hook = nameof(RightColorChanged))]
     [HideInInspector]
     public Color _rightColor;
+
+    private MaterialPropertyBlock _materialPropertyBlock;
 
     [SyncVar(hook = nameof(TextTimerChanged))]
     [HideInInspector]
@@ -29,23 +31,8 @@ public class ClientLogic_BlockParty : NetworkBehaviour
 
     private void Awake()
     {
-        _platforms.Callback += OnObjectsListUpdated;
-        _playerStartedPositins.Callback += OnPlayerStartedPositinsChanged;
-/*        if (isServer)
-        {
-            foreach (var player in MyNetworkManager.clientObjects)
-            {
-                TargetPlayerWin(player.GetComponent<NetworkIdentity>().connectionToClient);
-            }
-        }*/
-    }
-
-    private void OnPlayerStartedPositinsChanged(SyncList<Vector3>.Operation op, int index, Vector3 oldPosition, Vector3 newPosition)
-    {
-        if (op == SyncList<Vector3>.Operation.OP_ADD)
-        {
-            MyNetworkManager.clientObjects[MyNetworkManager.clientObjects.Count-1].transform.position = newPosition;
-        }
+        _platforms.Callback += OnAddColorToplatform;
+        _materialPropertyBlock = new MaterialPropertyBlock();
     }
 
     public void SetPlayersPositions(int _sizeMatrixPlatform)
@@ -68,38 +55,30 @@ public class ClientLogic_BlockParty : NetworkBehaviour
     {
         _imageUI.GetComponent<UnityEngine.UI.Image>().color = newColor;
     }
+
     private void TextTimerChanged(string oldText, string newText)
     {
         _timerText.GetComponent<Text>().text = newText;
     }
 
 
-    public void OnObjectsListUpdated(SyncList<GameObject>.Operation op, int index, GameObject oldObject, GameObject newObject)
+    public void OnAddColorToplatform(SyncList<GameObject>.Operation op, int index, GameObject oldObject, GameObject newObject)
     {
         if (op == SyncList<GameObject>.Operation.OP_ADD)
         {
             //Debug.Log(newObject.transform.position + "  " + _syncListColors[_platforms.Count - 1]);
             //RpcUpdateObjectMaterial(newObject, _syncListColors[_platforms.Count - 1]);
-            newObject.GetComponent<MeshRenderer>().material.color = _syncListColors[_platforms.Count - 1];
+            newObject.GetComponent<Renderer>().GetPropertyBlock(_materialPropertyBlock);
+            _materialPropertyBlock.SetColor("_Color", _syncListColors[_platforms.Count - 1]);
+            //Debug.Log(newObject.GetComponent<Renderer>().("Color"));
+            newObject.GetComponent<Renderer>().SetPropertyBlock(_materialPropertyBlock);
+            //newObject.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.blue);//_materialPropertyBlock.GetColor("Color"));//_syncListColors[_platforms.Count - 1];
         }
         /*else if (op == SyncList<GameObject>.Operation.OP_CLEAR)
         {
             RpcClearObjectsList();
         }*/
     }
-
-/*    [ClientRpc]
-    public void RpcUpdateObjectMaterial(GameObject obj, Color color)
-    {
-        obj.GetComponent<MeshRenderer>().material.color = color;
-    }*/
-
-
-/*    [ClientRpc]
-    public void RpcWriteTextOnSelectedElement(GameObject objectText, string text)
-    {
-        objectText.GetComponent<UnityEngine.UI.Text>().text = text;
-    }*/
 
     [TargetRpc]
     public void TargetCameraObservation(NetworkConnectionToClient conn)
@@ -111,38 +90,7 @@ public class ClientLogic_BlockParty : NetworkBehaviour
     [TargetRpc]
     public void TargetSetPlayerPosition(NetworkConnectionToClient conn, Vector3 newPosition)
     {
-        /*conn.identity.gameObject.GetComponent<NetworkIdentity>().AssignClientAuthority(conn);
-        CmdMoveObject(conn.identity.gameObject.GetComponent<NetworkTransform>(), newPosition);*/
         conn.identity.gameObject.transform.position = newPosition;
     }
 
-/*    [Command]
-    private void CmdMoveObject(NetworkTransform networkTransform, Vector3 newPosition)
-    {
-        networkTransform.transform.position = newPosition;
-        networkTransform.SetSyncVarDirtyBit(1UL);
-    }*/
-
-/*    [TargetRpc]
-    public void TargetPlayerWin(NetworkConnectionToClient conn)
-    {
-*//*        Debug.Log("Hallo");
-        PlayerProperties playerProperties = conn.identity.gameObject.GetComponent<PlayerProperties>();
-        
-        int countOfWin = playerProperties.countOfWins + 1;
-        playerProperties.CmdUpdatePlayerName();*//*
-    }*/
-
-/*    [ClientRpc]
-    public void RPCPaintColorOnImage(GameObject objectImage, Color color)
-    {
-        objectImage.GetComponent<UnityEngine.UI.Image>().color = color;
-    }*/
-
-
-/*    [ClientRpc]
-    public void RpcMakePlayerActive(GameObject player, bool active)
-    {
-        player.SetActive(active);
-    }*/
 }

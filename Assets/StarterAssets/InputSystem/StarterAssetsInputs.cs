@@ -18,6 +18,7 @@ namespace StarterAssets
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
+		public float moveCursorSpeed = 1;
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
@@ -31,7 +32,7 @@ namespace StarterAssets
 		{
 			if(cursorInputForLook)
 			{
-				LookInput(value.Get<Vector2>());
+				LookInput(value.Get<Vector2>() * moveCursorSpeed);
 			}
 		}
 

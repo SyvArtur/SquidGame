@@ -8,22 +8,6 @@ using UnityEngine;
 
 public class Sound_Doll : NetworkBehaviour
 {
-/*    private static Sound_Doll instance;
-    public static Sound_Doll Instance
-    {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType(typeof(Sound_Doll)) as Sound_Doll;
-
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-            
-        }
-    }*/
 
     [SerializeField] private ClientLogic_Doll ClientLogic;
 
@@ -34,18 +18,6 @@ public class Sound_Doll : NetworkBehaviour
     private delegate void Scan();
 
     private float timeForTimer;
-    void Awake()
-    {
-        //_kukulaku = GetComponent<AudioSource>();
-        /*if (isServer)
-        {
-            repeatSound += () =>
-            {
-                timeForTimer = _kukulaku.clip.length;
-                RpcPlaySound();
-            };
-        }*/
-    }
 
     IEnumerator Start()
     {
@@ -106,6 +78,4 @@ public class Sound_Doll : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(StartTimer());
     }
-
-
 }
